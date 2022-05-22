@@ -1,5 +1,6 @@
 from itertools import islice
 import time
+import psutil
 
 
 # initial size of hashtable
@@ -81,6 +82,10 @@ def contains(key):
 
 
 def main():
+    print('cpu % used at start: ', psutil.cpu_percent())
+    print(psutil.virtual_memory())  # physical memory usage
+    print('memory % used:', psutil.virtual_memory()[2])
+
     data = readdata()
 
     # insert data into hashtable
@@ -90,7 +95,7 @@ def main():
     end = time.time()
     print("Time of inserting data into hashtable: ", (end - start))
 
-    displayHashTable(hashTable)
+    # displayHashTable(hashTable)
 
     # should print true:
     searchValues1 = [522821228, 426088780, 717686692, 652705375, 207855228]
@@ -103,6 +108,10 @@ def main():
 
     for value in searchValues2:
         print(contains(value))
+
+    print('cpu % used in the end: ', psutil.cpu_percent())
+    print(psutil.virtual_memory())  # physical memory usage
+    print('memory % used:', psutil.virtual_memory()[2])
 
 
 if __name__ == "__main__":
