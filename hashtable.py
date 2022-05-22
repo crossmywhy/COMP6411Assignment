@@ -67,9 +67,14 @@ def insertData(key, value):
 
 def contains(key):
     index = hashFunction(key)
+    iterationCount = 0
     for data in hashTable[index]:
+        iterationCount += 1
         if data == key:
+            print("iteration times: ", iterationCount)
             return True
+        
+    print("iteration times: ", iterationCount)
 
     return False
 
@@ -94,7 +99,7 @@ def main():
         insertData(number, number)
     end = time.time()
     print("Time of inserting data into hashtable: ", (end - start))
-
+    print()
     # displayHashTable(hashTable)
 
     # should print true:
@@ -103,12 +108,18 @@ def main():
     # should print false:
     searchValues2 = [0, 100000000, 300000000, 600000000, 1000000000]
 
-    for value in searchValues1:
-        print(contains(value))
-
-    for value in searchValues2:
-        print(contains(value))
-
+    for value in searchValues1 + searchValues2:
+        print("searching for value: ", value)
+        start = time.time()
+        result = contains(value)
+        end = time.time()
+        print("Time of searching value in seconds: ", (end - start))
+        if result:
+            print("value found!", end = '\n\n')
+        else:
+            print("value not found!", end = '\n\n')
+        
+        
     print('cpu % used in the end: ', psutil.cpu_percent())
     print(psutil.virtual_memory())  # physical memory usage
     print('memory % used:', psutil.virtual_memory()[2])
